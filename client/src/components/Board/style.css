@@ -1,0 +1,13 @@
+.board {
+  display: inline-block;
+  position: relative;
+  width: 512px;
+  height: 512px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: #ffad33;
+
+  background-color: #ffc266;
+  margin: 4px;
+  transition: transform 1s;
+}
