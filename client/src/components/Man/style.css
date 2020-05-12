@@ -1,0 +1,70 @@
+.man {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  margin: 4px;
+  border-radius: 50%;
+  background-color: #444;
+  border: 2px solid #222;
+  transition-property: left, top;
+  transition-duration: 0.5s;
+  z-index: 3;
+}
+
+.ring {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  right: 20%;
+  bottom: 20%;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 6px solid #666;
+
+  transition: background-color 0.5s;
+}
+
+.man.white {
+  background-color: #fff;
+  border-color: #999;
+}
+
+.man.white .ring {
+  border-color: #ddd;
+}
+
+.man.king .ring {
+  background-color: #ddd;
+}
+
+.man.white.king .ring {
+  background-color: #444;
+}
+
+.label {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+
+  font: 20px Arial;
+  font-weight: bold;
+  padding: 0 8px;
+
+  background-color: #ff531a;
+  color: rgba(255, 255, 255, 0.8);
+
+  border-radius: 20px;
+  user-select: none;
+  z-index: 4;
+
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.label.warn {
+  background-color: #ffff00;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.man:focus {
+  outline: none;
+}
