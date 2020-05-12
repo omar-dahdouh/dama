@@ -7,7 +7,7 @@
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
     "init": "cd client && npm i && cd ../server && npm i",
-    "start": "cross-env NODE_ENV=production node ./server/src",
+    "start": "node ./server/src",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "install": "npm run init"
   },
