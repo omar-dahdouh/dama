@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "cd server && npm run dev",
+    "server": "cd server && cross-env NODE_ENV=development npm run dev",
     "client": "cd client && npm start",
     "init": "cd client && npm i && cd ../server && npm i",
-    "start": "node ./server/src",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start": "cross-env NODE_ENV=production node ./server/src",
+    "heroku-postbuild": "NODE_ENV=production cd client && npm install && npm run build",
     "install": "npm run init"
   },
   "repository": {
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/omar-dahdouh/dama/issues"
   },
-  "homepage": "https://github.com/omar-dahdouh/dama#readme"
+  "homepage": "https://github.com/omar-dahdouh/dama#readme",
+  "dependencies": {
+    "cross-env": "^7.0.2"
+  }
 }
