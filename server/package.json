@@ -1,13 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "private": true,
-  "proxy": "http://localhost:5000",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src",
-    "start": "node ./src"
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +20,8 @@
     "prettier": "^2.0.2"
   },
   "dependencies": {
+    "compression": "^1.7.4",
+    "env2": "^2.2.2",
     "express": "^4.17.1"
   }
 }
