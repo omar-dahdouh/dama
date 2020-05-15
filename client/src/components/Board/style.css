@@ -6,7 +6,8 @@
   border-width: 0 2px 2px 0;
   border-style: solid;
   border-color: #ffad33;
-
+  border: 16px solid #cc7a00;
+  border-radius: 6px;
   background-color: #ffc266;
   margin: 4px;
   transition: transform 1s;
