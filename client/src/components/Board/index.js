@@ -212,19 +212,6 @@ function Board() {
           click={onCellClick}
         />
       ))}
-      <button
-        type="button"
-        style={{
-          position: 'absolute',
-          top: '-20px',
-        }}
-        onClick={() => {
-          if (selectedMan >= 0)
-            setKing(modify(king, selectedMan, !king[selectedMan]));
-        }}
-      >
-        king
-      </button>
     </div>
   );
 }
