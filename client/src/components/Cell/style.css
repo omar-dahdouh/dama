@@ -40,6 +40,6 @@
 .cell.selected {
   width: 60px;
   height: 60px;
-  border: 3px solid #cc7a00;
+  border: 3px solid #b36b00;
   z-index: 2;
 }

@@ -6,12 +6,12 @@
   border-radius: 50%;
   background-color: #444;
   border: 2px solid #222;
-  transition-property: left, top;
+  transition-property: left, top, opacity;
   transition-duration: 0.5s;
   z-index: 3;
 }
 
-.ring {
+.man .ring {
   position: absolute;
   left: 20%;
   top: 20%;
@@ -41,7 +41,7 @@
   background-color: #444;
 }
 
-.label {
+.man .label {
   position: absolute;
   left: -8px;
   top: -8px;
@@ -52,19 +52,29 @@
 
   background-color: #ff531a;
   color: rgba(255, 255, 255, 0.8);
-
   border-radius: 20px;
+
+  transition: background-color 0.5s;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
   user-select: none;
   z-index: 4;
-
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
-.label.warn {
+.man .label.gray {
+  background-color: #777;
+}
+
+.man .label.warn {
   background-color: #ffff00;
   color: rgba(0, 0, 0, 0.8);
 }
 
 .man:focus {
   outline: none;
+}
+
+.man.disable {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
 }
