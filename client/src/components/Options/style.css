@@ -1,0 +1,20 @@
+.options {
+  display: inline-block;
+  position: relative;
+  width: 544px;
+  height: 544px;
+
+  background-color: #aaa;
+  margin: 4px;
+}
+
+.github {
+  border: none;
+  position: absolute;
+  background-color: #222;
+  font: 16px Arial;
+  font-weight: bold;
+  padding: 10px;
+  color: #aaa;
+  padding: 0 6px;
+}
