@@ -2,6 +2,7 @@ const express = require('express');
 const { join } = require('path');
 const compression = require('compression');
 const router = require('./router');
+const connection = require('./database/connection');
 
 const app = express();
 app.disabled('x-powered-by');
@@ -18,5 +19,9 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(join(__dirname, '..', '..', 'client', 'build', 'index.html'))
   );
 }
+
+connection
+  .then(() => console.log('mongo database is connected'))
+  .catch(() => process.exit(1));
 
 module.exports = app;
