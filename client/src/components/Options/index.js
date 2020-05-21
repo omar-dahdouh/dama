@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import { sendCode, auth } from './github';
-import { connect } from './websocket';
+import { connect, createGame } from './websocket';
 
 const clientID = 'e6d8d57f54d0bbcda915';
 const query = `client_id=${clientID}&scope=`;
@@ -11,6 +11,9 @@ function Options() {
   const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({ login: '', name: '', avatar: '' });
+  const [connected, setConnected] = useState(false);
+  const [connecting, setConnecting] = useState(false);
+  const [gameList, setGameList] = useState([]);
 
   useEffect(() => {
     sendCode(setLoading, setIsLogin, setUserInfo);
@@ -19,6 +22,13 @@ function Options() {
   useEffect(() => {
     auth(setLoading, setIsLogin, setUserInfo);
   }, []);
+
+  useEffect(() => {
+    if (isLogin && !connected && !connecting) {
+      setConnecting(true);
+      connect(setConnected, setConnecting, setGameList);
+    }
+  }, [isLogin]);
 
   const { login, name, avatar } = userInfo;
 
@@ -29,13 +39,27 @@ function Options() {
         <div>
           <img className="avatar" src={avatar} alt="avatar" />
           <div className="userName">{name || login}</div>
-          <button type="button" className="new-game btn" onClick={() => {}}>
+          <button type="button" className="new-game btn" onClick={createGame}>
             create new Game
           </button>
           or join a game
-          <button type="button" className="btn" onClick={connect}>
+          <div>
+            {connecting ? (
+              'connecting ...'
+            ) : (
+              <div>
+                <h2>game list</h2>
+                <ul className="games">
+                  {gameList.map((game, index) => (
+                    <li>{`${index}: ${game}`}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          {/* <button type="button" className="btn" onClick={connect}>
             connect
-          </button>
+          </button> */}
         </div>
       ) : (
         <div>
@@ -46,7 +70,6 @@ function Options() {
             onClick={() => {
               window.location = github;
             }}
-            // href={github}
           >
             Github
           </button>

@@ -1,6 +1,10 @@
 // const http = require('http');
 const { Server } = require('ws');
 const { verify } = require('./token');
+// const { newGame } = require('./Game');
+
+const gameList = [];
+// const nextID = 0;
 
 const cookieParse = (text) => {
   const parsed = {};
@@ -30,12 +34,26 @@ server.on('connection', (ws, req) => {
   const cookie = cookieParse(req.headers.cookie);
   const { login: user } = verify(cookie.user);
 
-  console.log('user');
-  console.log(user);
-
   ws.on('message', (message) => {
-    console.log(message);
-    console.log(user);
+    try {
+      const data = JSON.parse(message);
+      const { type } = data;
+      if (type === 'create game') {
+        // const game = newGame(user);
+        if (gameList.indexOf(user) === -1) {
+          gameList.push(user);
+        }
+        server.clients.forEach((client) => {
+          client.send(
+            JSON.stringify({
+              type: 'game list',
+              list: gameList,
+            })
+          );
+        });
+      }
+      console.log(data);
+    } catch (error) {}
   });
 });
 

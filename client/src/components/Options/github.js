@@ -19,7 +19,6 @@ export const sendCode = async (setLoading, setIsLogin, setUserInfo) => {
         setLoading(false);
       });
   }
-  console.log('no code');
 };
 
 export const auth = async (setLoading, setIsLogin, setUserInfo) => {
