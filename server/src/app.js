@@ -3,7 +3,7 @@ const { join } = require('path');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const router = require('./router');
-// require('./database/connection');
+require('./database/connection');
 require('./controllers/websocket');
 
 const app = express();
