@@ -8,13 +8,27 @@
   margin: 4px;
 }
 
-.github {
+.avatar {
+  width: 64px;
+  height: 64px;
+}
+
+.userName {
+  font: 24px Arial;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline;
   border: none;
-  position: absolute;
-  background-color: #222;
   font: 16px Arial;
   font-weight: bold;
-  padding: 10px;
-  color: #aaa;
   padding: 0 6px;
+  margin: 0 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn:active {
+  color: #aaa;
+  background-color: #222;
 }

@@ -6,9 +6,14 @@ const URI =
     ? process.env.DB_PROD
     : process.env.DB_TEST;
 
-module.exports = mongoose.connect(URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose
+  .connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log('mongo database is connected'))
+  .catch((err) => console.log(err));
+
+module.exports = mongoose.connection;
