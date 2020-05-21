@@ -1,5 +1,10 @@
 export const connect = (onOpen, onError) => {
-  const connection = new WebSocket('ws://localhost:12345');
+  const { location } = window;
+  const protocol = location.protocol.replace('http', 'ws');
+  const { hostname } = location;
+  const HOST = `${protocol}//${hostname}:5050`;
+  const connection = new WebSocket(HOST);
+
   connection.onopen = onOpen;
   connection.onerror = onError;
 };
