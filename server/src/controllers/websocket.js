@@ -1,13 +1,6 @@
 // const http = require('http');
-const WebSocket = require('ws');
+const { Server } = require('ws');
 const { verify } = require('./token');
-// const server = http.createServer();
-// const wss = new WebSocket.Server({ noServer: true });
-
-const server = new WebSocket.Server({
-  port: 12345,
-  //   clientTracking: true,
-});
 
 const cookieParse = (text) => {
   const parsed = {};
@@ -18,16 +11,10 @@ const cookieParse = (text) => {
   return parsed;
 };
 
-// server.on('headers', (headers, request) => {
-//
-//   headers['Sec-WebSocket-Accept'] = '';
-//   console.log(headers);
-//   const { user } = cookie;
-// });
+const server = new Server({ port: 5050 });
 
 server.shouldHandle = (request) => {
   const cookie = cookieParse(request.headers.cookie);
-  //   const { user } = cookie;
 
   try {
     verify(cookie.user);
@@ -37,27 +24,14 @@ server.shouldHandle = (request) => {
   }
 };
 
-// server.handleUpgrade = (request, socket, head, callback) => {
-//   const cookie = cookieParse(request.headers.cookie);
-
-//   callback(socket);
-//   //   try {
-//   //     const decoded = verify(cookie.user);
-//   //     // callback(socket, request, decoded);
-//   //     // return true;
-//   //     // server.emit('connection', socket, request, decoded);
-//   //     callback(socket);
-//   //   } catch (err) {
-//   //     // return false;
-//   //     console.log(err);
-//   //     socket.destroy();
-//   //   }
-// };
-
 server.on('connection', (ws, req) => {
+  console.log('connection');
+
   const cookie = cookieParse(req.headers.cookie);
-  //   const { user } = cookie;
   const { login: user } = verify(cookie.user);
+
+  console.log('user');
+  console.log(user);
 
   ws.on('message', (message) => {
     console.log(message);
@@ -72,5 +46,3 @@ server.on('close', () => {
 server.on('error', () => {
   console.log('error');
 });
-
-module.exports = server;
