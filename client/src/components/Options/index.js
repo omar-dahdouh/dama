@@ -1,44 +1,58 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './style.css';
+import { sendCode, auth } from './github';
+import { connect } from './websocket';
 
-const sendToken = async () => {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  if (code) {
-    axios
-      .post(`/login/github`, { code })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-        }
-      })
-      .catch(console.log);
-  }
-};
+const clientID = 'e6d8d57f54d0bbcda915';
+const query = `client_id=${clientID}&scope=`;
+const github = `https://github.com/login/oauth/authorize?${query}`;
 
 function Options() {
-  const clientID = 'e6d8d57f54d0bbcda915';
-  const query = `client_id=${clientID}&scope=`;
-  const github = `https://github.com/login/oauth/authorize?${query}`;
+  const [isLogin, setIsLogin] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState({ login: '', name: '', avatar: '' });
 
-  console.log('github');
-  console.log(github);
+  useEffect(() => {
+    sendCode(setLoading, setIsLogin, setUserInfo);
+  });
 
-  useEffect(sendToken);
+  useEffect(() => {
+    auth(setLoading, setIsLogin, setUserInfo);
+  }, []);
+
+  const { login, name, avatar } = userInfo;
 
   return (
     <div className="options">
-      <button
-        type="button"
-        className="github"
-        onClick={() => {
-          window.location = github;
-        }}
-        href={github}
-      >
-        Github Login
-      </button>
+      {loading && <div>loading ...</div>}
+      {isLogin ? (
+        <div>
+          <img className="avatar" src={avatar} alt="avatar" />
+          <div className="userName">{name || login}</div>
+          <button type="button" className="new-game btn" onClick={() => {}}>
+            create new Game
+          </button>
+          or join a game
+          <button type="button" className="btn" onClick={connect}>
+            connect
+          </button>
+        </div>
+      ) : (
+        <div>
+          login using
+          <button
+            type="button"
+            className="github btn"
+            onClick={() => {
+              window.location = github;
+            }}
+            // href={github}
+          >
+            Github
+          </button>
+          to play online
+        </div>
+      )}
     </div>
   );
 }

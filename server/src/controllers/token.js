@@ -14,9 +14,4 @@ exports.sign = (data) =>
     );
   });
 
-exports.verify = (data) => {
-  jwt.verify(data, process.env.secretKey, (err, decoded) => {
-    // if (err) reject(err);
-    // resolve(token);
-  });
-};
+exports.verify = (data) => jwt.verify(data, process.env.secretKey);

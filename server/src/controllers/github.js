@@ -1,10 +1,7 @@
 const querystring = require('querystring');
 const axios = require('axios');
 const { sign } = require('./token');
-
-// //////////////////
-// generateToken(user.email).then((token) => res.cookie('user_email', token).redirect('/')
-// ////////////////
+const Users = require('../database/models/User');
 
 module.exports = async (req, res) => {
   const { code } = req.body;
@@ -34,12 +31,18 @@ module.exports = async (req, res) => {
           Authorization: `token ${accessToken}`,
         },
       });
-      const { login, avatar_url: avatar } = userInfo.data;
-      const token = await sign({ login, avatar });
+      const { login, name, avatar_url: avatar } = userInfo.data;
+      const token = await sign({ login });
 
-      res.cookie('github', token).json({
-        message: 'logged in successfully',
+      await Users.updateOne(
+        { login },
+        { login, name, avatar, token: accessToken },
+        { upsert: true }
+      );
+
+      res.cookie('user', token).json({
         login,
+        name,
         avatar,
       });
     } else {
